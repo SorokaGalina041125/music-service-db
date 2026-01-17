@@ -35,14 +35,9 @@ psql -U postgres -d music_service_db -f select_queries.sql
 psql -U postgres -d music_service_db -f advanced_queries.sql
 psql -U postgres -d music_service_db -f optional_queries.sql
 
-## 🚀 
-
-### Способ 2: Автоматический запуск (Windows)
-
-```batch
+Способ 2: Автоматический запуск (Windows)
 # Запустить скрипт
 run_all.bat
-```
 
 ## Содержание базы данных
 
