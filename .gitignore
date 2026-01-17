@@ -1,53 +1,10 @@
-# PostgreSQL данные и логи
+# Файлы баз данных
 *.db
 *.sqlite
-*.sqlite3
-postgresql_data/
-pgdata/
-pg_log/
-postgresql.log
-*.log
 
-# Файлы IDE и редакторов
+# Настройки IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*.sublime-*
 
 # Системные файлы
 .DS_Store
-Thumbs.db
-desktop.ini
-ehthumbs.db
-
-# Временные файлы
-*.tmp
-*.temp
-*.cache
-
-# Резервные копии
-*.bak
-*.backup
-*.old
-*.orig
-
-# Локальные настройки и секреты (НИКОГДА не коммитьте!)
-.env
-*.env
-.env.local
-secrets.*
-config.local.*
-
-# Выходные файлы/отчеты
-*.pdf
-*.xlsx
-*.docx
-*.csv
-output/
-
-# Docker (если будете использовать)
-docker-compose.override.yml
-
-# Миграции (если будете делать)
-migrations/
