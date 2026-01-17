@@ -1,10 +1,81 @@
-# Файлы баз данных
-*.db
+# Файлы баз данных PostgreSQL
 *.sqlite
+*.db
+*.db3
+*.mdb
+*.mdf
 
-# Настройки IDE
+# PostgreSQL специфичные файлы
+postgresql/
+pgdata/
+postgresql_data/
+postgres/
+data/
+*.pid
+*.lock
+postmaster.pid
+postmaster.opts
+
+# Папка с данными PostgreSQL (часто используется для Docker)
+/var/lib/postgresql/
+
+# Бинарные дампы и резервные копии БД
+*.backup
+*.dump
+*.sql.gz
+*.tar.gz
+*.back
+
+# Файлы истории psql
+.psql_history
+
+# Файлы настроек DBeaver
+.dbeaver/
+dbeaver-data-sources.xml
+dbeaver-data-sources.xml.bak
+
+# Файлы настроек IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
 # Системные файлы
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Временные файлы
+*.tmp
+*.temp
+*.log
+*.bak
+*.backup~
+
+# Файлы результатов (если вы генерируете отчеты)
+/results/
+/output/
+/export/
+
+# Конфиденциальные данные (пароли, ключи)
+.env
+*.env
+config.ini
+secrets.txt
+credentials.json
+
+# Файлы операционной системы Windows
+[Ll]ogs/
+[Tt]emp/
+
+# Файлы сборки/компиляции (если будете добавлять)
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
