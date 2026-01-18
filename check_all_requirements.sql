@@ -152,4 +152,42 @@ BEGIN
     WHERE ar.artist_id NOT IN (
         SELECT DISTINCT aa.artist_id
         FROM Artist_Album aa
-        JOIN Album
+        JOIN Album al ON aa.album_id = al.album_id
+        WHERE al.release_year = 2020
+    );
+    RAISE NOTICE '4. Исполнители без альбомов 2020: % записей %', 
+        task3_query4_count,
+        CASE WHEN task3_query4_count > 0 THEN '✅' ELSE '❌' END;
+    
+    -- 5. Сборники с исполнителем
+    SELECT COUNT(*) INTO task3_query5_count FROM (
+        SELECT DISTINCT c.collection_id
+        FROM Collection c
+        JOIN Track_Collection tc ON c.collection_id = tc.collection_id
+        JOIN Track t ON tc.track_id = t.track_id
+        JOIN Artist_Album aa ON t.album_id = aa.album_id
+        JOIN Artist a ON aa.artist_id = a.artist_id
+        WHERE a.name = 'Король и Шут'
+    ) as subquery;
+    RAISE NOTICE '5. Сборники с Король и Шут: % записей %', 
+        task3_query5_count,
+        CASE WHEN task3_query5_count > 0 THEN '✅' ELSE '❌' END;
+    
+    RAISE NOTICE '';
+    RAISE NOTICE '=== ИТОГОВАЯ ПРОВЕРКА ===';
+    
+    IF artists_count >= 4 AND genres_count >= 3 AND albums_count >= 3 
+       AND tracks_count >= 6 AND collections_count >= 4 THEN
+        RAISE NOTICE '✅ ВСЕ ТРЕБОВАНИЯ ЗАДАНИЯ 1 ВЫПОЛНЕНЫ!';
+    ELSE
+        RAISE NOTICE '❌ НЕ ВСЕ ТРЕБОВАНИЯ ЗАДАНИЯ 1 ВЫПОЛНЕНЫ';
+    END IF;
+    
+    IF query1_count > 0 AND query2_count > 0 AND query3_count > 0 
+       AND query4_count > 0 AND query5_count > 0 THEN
+        RAISE NOTICE '✅ ЗАПРОСЫ ЗАДАНИЯ 2 ВОЗВРАЩАЮТ РЕЗУЛЬТАТЫ!';
+    ELSE
+        RAISE NOTICE '❌ НЕКОТОРЫЕ ЗАПРОСЫ ЗАДАНИЯ 2 НЕ РАБОТАЮТ';
+    END IF;
+    
+END $$;

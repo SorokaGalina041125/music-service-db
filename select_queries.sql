@@ -5,7 +5,7 @@
 SELECT 
     title AS "Название трека",
     duration AS "Продолжительность (сек)",
-    CONCAT(FLOOR(duration / 60), ':', LPAD(duration % 60, 2, '0')) AS "Продолжительность (мм:сс)"
+    CONCAT(FLOOR(duration / 60), ':', TO_CHAR(duration % 60, 'FM00')) AS "Продолжительность (мм:сс)"
 FROM Track
 WHERE duration = (SELECT MAX(duration) FROM Track);
 
@@ -13,7 +13,7 @@ WHERE duration = (SELECT MAX(duration) FROM Track);
 SELECT 
     title AS "Название трека",
     duration AS "Продолжительность (сек)",
-    CONCAT(FLOOR(duration / 60), ':', LPAD(duration % 60, 2, '0')) AS "Продолжительность (мм:сс)"
+    CONCAT(FLOOR(duration / 60), ':', TO_CHAR(duration % 60, 'FM00')) AS "Продолжительность (мм:сс)"
 FROM Track
 WHERE duration >= 210
 ORDER BY duration DESC;
@@ -33,9 +33,29 @@ FROM Artist
 WHERE name NOT LIKE '% %' AND name NOT LIKE '%-%'
 ORDER BY name;
 
--- 5. Название треков, которые содержат слово «мой» или «my»
+-- 5. Название треков, которые содержат слово «мой» или «my» (целые слова)
 SELECT 
     title AS "Трек содержит 'мой' или 'my'"
 FROM Track
-WHERE title ILIKE '%мой%' OR title ILIKE '%my%'
+WHERE 
+    -- Слово "мой" в начале строки
+    title ILIKE 'мой %' 
+    OR title ILIKE 'мой'  -- только слово "мой"
+    -- Слово "мой" в конце строки
+    OR title ILIKE '% мой' 
+    OR title ILIKE '% мой.' 
+    OR title ILIKE '% мой!' 
+    OR title ILIKE '% мой?' 
+    -- Слово "мой" в середине строки
+    OR title ILIKE '% мой %'
+    -- Слово "my" в начале строки
+    OR title ILIKE 'my %'
+    OR title ILIKE 'my'  -- только слово "my"
+    -- Слово "my" в конце строки
+    OR title ILIKE '% my' 
+    OR title ILIKE '% my.' 
+    OR title ILIKE '% my!' 
+    OR title ILIKE '% my?' 
+    -- Слово "my" в середине строки
+    OR title ILIKE '% my %'
 ORDER BY title;

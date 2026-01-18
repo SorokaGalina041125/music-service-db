@@ -24,7 +24,11 @@ SELECT
     a.release_year AS "Год выпуска",
     COUNT(t.track_id) AS "Количество треков",
     ROUND(AVG(t.duration), 1) AS "Средняя продолжительность (сек)",
-    CONCAT(FLOOR(AVG(t.duration) / 60), ':', LPAD(ROUND(AVG(t.duration) % 60)::INT, 2, '0')) AS "Средняя продолжительность (мм:сс)"
+    CONCAT(
+        FLOOR(AVG(t.duration) / 60), 
+        ':', 
+        TO_CHAR(ROUND(AVG(t.duration) % 60)::INT, 'FM00')
+    ) AS "Средняя продолжительность (мм:сс)"
 FROM Album a
 JOIN Track t ON a.album_id = t.album_id
 GROUP BY a.album_id, a.title, a.release_year

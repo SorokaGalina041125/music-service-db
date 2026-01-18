@@ -27,7 +27,7 @@ SELECT
     t.title AS "Трек не в сборниках",
     a.title AS "Альбом",
     ar.name AS "Исполнитель",
-    CONCAT(FLOOR(t.duration / 60), ':', LPAD(t.duration % 60, 2, '0')) AS "Длительность"
+    CONCAT(FLOOR(t.duration / 60), ':', RIGHT('0' || (t.duration % 60), 2)) AS "Длительность"
 FROM Track t
 LEFT JOIN Track_Collection tc ON t.track_id = tc.track_id
 JOIN Album a ON t.album_id = a.album_id
@@ -41,7 +41,7 @@ SELECT DISTINCT
     ar.name AS "Исполнитель",
     t.title AS "Самый короткий трек",
     t.duration AS "Длительность (сек)",
-    CONCAT(FLOOR(t.duration / 60), ':', LPAD(t.duration % 60, 2, '0')) AS "Длительность (мм:сс)"
+    CONCAT(FLOOR(t.duration / 60), ':', RIGHT('0' || (t.duration % 60), 2)) AS "Длительность (мм:сс)"
 FROM Track t
 JOIN Album a ON t.album_id = a.album_id
 JOIN Artist_Album aa ON a.album_id = aa.album_id

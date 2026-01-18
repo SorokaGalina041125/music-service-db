@@ -79,3 +79,5 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+*.session.sg
+*.session
