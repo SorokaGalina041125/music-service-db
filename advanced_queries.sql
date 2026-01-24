@@ -1,14 +1,13 @@
 -- advanced_queries.sql
 -- Задание 3: Продвинутые SELECT-запросы
 
--- 1. Количество исполнителей в каждом жанре
+-- 1. Количество исполнителей в каждом жанре (с выводом всех жанров)
 SELECT 
     g.name AS "Жанр",
     COUNT(DISTINCT ag.artist_id) AS "Количество исполнителей"
 FROM Genre g
 LEFT JOIN Artist_Genre ag ON g.genre_id = ag.genre_id
 GROUP BY g.genre_id, g.name
-HAVING COUNT(DISTINCT ag.artist_id) > 0
 ORDER BY "Количество исполнителей" DESC, "Жанр";
 
 -- 2. Количество треков, вошедших в альбомы 2019–2020 годов
@@ -24,11 +23,7 @@ SELECT
     a.release_year AS "Год выпуска",
     COUNT(t.track_id) AS "Количество треков",
     ROUND(AVG(t.duration), 1) AS "Средняя продолжительность (сек)",
-    CONCAT(
-        FLOOR(AVG(t.duration) / 60), 
-        ':', 
-        TO_CHAR(ROUND(AVG(t.duration) % 60)::INT, 'FM00')
-    ) AS "Средняя продолжительность (мм:сс)"
+    CONCAT(FLOOR(AVG(t.duration) / 60), ':', RIGHT('0' || ROUND(AVG(t.duration) % 60)::INT, 2)) AS "Средняя продолжительность (мм:сс)"
 FROM Album a
 JOIN Track t ON a.album_id = t.album_id
 GROUP BY a.album_id, a.title, a.release_year
